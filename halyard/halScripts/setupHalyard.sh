@@ -198,6 +198,23 @@ redis:
     enabled: false
 CLOUDDRIVER_LOCAL
 
+cat <<SPINNAKERCONFIG_YML >> /${USER}/.hal/${DEPLOYMENT_NAME}/profiles/spinnakerconfig.yml
+spring:
+  profiles:
+    include: vault
+  cloud:
+    config:
+      server:
+        vault:
+          host: ${VAULT_ADDR}
+          port: 443
+          scheme: https
+          backend: secret
+          kvVersion: 1
+          default-key: spinnaker
+          token: ${VAULT_TOKEN}
+SPINNAKERCONFIG_YML
+
 # Changing health check to be native instead of wget https://github.com/spinnaker/spinnaker/issues/4479
 cat <<EOF >> /${USER}/.hal/${DEPLOYMENT_NAME}/service-settings/gate.yml
 kubernetes:
