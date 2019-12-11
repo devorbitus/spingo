@@ -1,7 +1,3 @@
-terraform {
-  backend "gcs" {
-  }
-}
 
 variable "gcp_project" {
   description = "GCP project name"
