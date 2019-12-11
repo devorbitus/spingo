@@ -4,7 +4,7 @@ terraform {
 }
 
 provider "vault" {
-}
+
 
 data "vault_generic_secret" "terraform-account" {
   path = "secret/${var.gcp_project}/${var.terraform_account}"
