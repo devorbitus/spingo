@@ -6,6 +6,13 @@ on:
 jobs:
   static-ips:
     name: 'Terraform (Static IPs)'
+    services:
+      vault:
+        image: vault
+        ports:
+          - 8200:8200
+        env:
+          VAULT_DEV_ROOT_TOKEN_ID: ${{ secrets.GITHUB_VAULT_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
@@ -28,3 +35,5 @@ jobs:
           tf_actions_comment: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VAULT_ADDR: http://localhost:8200
+          VAULT_TOKEN: ${{ secrets.GITHUB_VAULT_TOKEN }}
